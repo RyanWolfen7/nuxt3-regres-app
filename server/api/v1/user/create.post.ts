@@ -1,16 +1,16 @@
-import { createUser, userExists } from "~/server/models/v1/users";
+import { handleUserAuth, findUserByEmail } from "~/server/models/v1/users";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody<{ username: string, email: string; password: string; rememberMe: boolean }>(event)
-    const { username, email, password } = body
+    const { email, password } = body
     
-    if (!email || !password || !username) {
+    if (!email || !password) {
         return createError({
             statusCode: 400,
             message: 'User name, email address and password are required',
         })
     }
-    const doesUserExist = await userExists(email)
+    const doesUserExist = await findUserByEmail(email, 'boolean')
     if ( doesUserExist ) { 
         return createError({
             statusCode: 400,
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
         }) 
     }
 
-    const createdUser = await createUser({ username, email, password })
+    const createdUser = await handleUserAuth({ email, password }, 'register')
     if(createdUser.error) { 
         return createError({
             statusCode: 400,
