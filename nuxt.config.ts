@@ -3,6 +3,13 @@ const ONE_DAY = 60 * 60 * 24 * 1000
 const ONE_WEEK = ONE_DAY * 7
 
 export default defineNuxtConfig({
+    css: ['~/assets/css/main.css'],
+    postcss: {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {},
+        },
+    },
     runtimeConfig: {
         cookieName: process.env.COOKIE_NAME || '__session',
         cookieSecret: process.env.COOKIE_SECRET || 'secret',
