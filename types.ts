@@ -1,11 +1,12 @@
 export interface User {
-    id: number,
+    id?: number,
     email: string,
     password: string,
-    firstName: string,
-    lastName: string,
-    avatar: string
-    [key: string]: any;
+    firstName?: string,
+    lastName?: string,
+    avatar?: string,
+    username?: string,
+    [key: string]: any
 }
 
 interface ErrorResponse {

@@ -4,7 +4,7 @@
         data() {
             return {
                 form: {
-                    userName: '',
+                    username: '',
                     email: '',
                     password: ''
                 },
@@ -21,10 +21,11 @@
                 })
                 if (error.value) {
                     const { message, statusCode } = error.value?.data
+                    console.log('ERROR\n\n', error)
                     alert(message)
                 }
                 if(data.value) {
-                    console.log(data.value)
+                    console.log('SUCCESS', data.value)
                     alert(data.value);
                 } 
             }
@@ -36,7 +37,7 @@
     <div class="flex items-center justify-center h-screen">
         <div class="bg-secondary p-4">
             <form @submit.prevent="handleSubmit" class="text-center text-accent">
-                <input type="text" v-model="form.userName" placeholder="Username" class="w-full bg-grey-500 mb-2 py-2 px-4 rounded text-opacity-100">
+                <input type="text" v-model="form.username" placeholder="Username" class="w-full bg-grey-500 mb-2 py-2 px-4 rounded text-opacity-100">
                 <input type="email" v-model="form.email" placeholder="Email" class="w-full bg-grey-500 mb-2 text-primary py-2 px-4 rounded">
                 <input type="password" v-model="form.password" placeholder="Password" class="w-full bg-grey-500 mb-2 text-primary py-2 px-4 rounded">
                 <button type="submit" class="w-full bg-main text-secondary py-2 px-4 rounded">Join</button>
