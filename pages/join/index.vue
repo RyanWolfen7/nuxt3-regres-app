@@ -21,11 +21,9 @@
                 })
                 if (error.value) {
                     const { message, statusCode } = error.value?.data
-                    console.log('ERROR\n\n', error)
                     alert(message)
                 }
                 if(data.value) {
-                    console.log('SUCCESS', data.value)
                     alert(data.value);
                 } 
             }
