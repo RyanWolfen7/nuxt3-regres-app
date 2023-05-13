@@ -1,6 +1,6 @@
 import { filterUsers } from "~/server/utils/reqres"
 
 export async function userExists(email: string) {
-    const exists = filterUsers(email)
+    const exists = filterUsers("email", email)
     return exists
 }

@@ -12,7 +12,9 @@ export default defineEventHandler(async (event) => {
     }
     const doesUserExist = await userExists(email)
     if ( doesUserExist ) {
-        return doesUserExist
+        return "exists"
+    } else {
+        return "doesnt"
     }
 
 })

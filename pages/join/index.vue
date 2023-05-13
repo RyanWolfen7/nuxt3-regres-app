@@ -24,8 +24,8 @@
                     alert(message)
                 }
                 if(data.value) {
-                    console.log(data.value.data)
-                    alert(data.value.data);
+                    console.log(data.value)
+                    alert(data.value);
                 } 
             }
         }
