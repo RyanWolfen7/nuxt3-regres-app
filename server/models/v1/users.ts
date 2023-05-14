@@ -11,9 +11,14 @@ const defaultHeaders = {
 }
 
 export async function findUserByEmail(email: string, returnType: string = "default") {
-    const user = filterUsers("email", email, returnType)
+    const user = await filterUsers("email", email, returnType)
     return user
 }
+
+export async function getUserById(id: number) {
+    const user = await filterUsers('id', id)
+    return user
+} 
 
 export async function handleUserAuth(user: User, type: string) {
     try {

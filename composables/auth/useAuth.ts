@@ -9,43 +9,46 @@ export const useAuth = () => {
         authUser.value = user
     }
 
+    const setCookie = (cookie: any) => {
+        cookie.value = cookie
+    }
+
     const login = async (
         email: string,
         password: string,
         rememberMe: boolean,
     ) => {
-        const { data: response } = await axios.post('/api/v1/user/login', { email, password, rememberMe })
+        const { data: response } = await axios.post('/v1/auth/login', { email, password, rememberMe })
         setUser(response)
 
         return authUser
     }
 
     const logout = async () => {
-        const { data: response } = await axios.post('/api/v1/user/logout')
+        const { data: response } = await axios.post('/v1/auth/logout')
         setUser(response)
         return true
     }
 
+    const me = async () => {
+        if (!authUser.value) {
+            try {
+                const { data: response } = await axios.get('/v1/auth/me', {
+                    headers: useRequestHeaders(['cookie'])
+                })
+                setUser(response)
+            }
+            catch (error) {
+                setCookie(null)
+            }
+        }
+
+        return authUser
+    }
+
     return {
         login,
-        logout
+        logout,
+        me
     }
 }
-
-// { 
-    // const { data, error } = await useFetch('/api/v1/user/login', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(this.form)
-    // })
-//     if (error.value) {
-//         const { message, statusCode } = error.value?.data
-//         alert(message)
-//     }
-//     if(data.value) {
-//         console.log(data.value)
-//         alert(data.value);
-//     } 
-// }

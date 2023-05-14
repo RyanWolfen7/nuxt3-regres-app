@@ -12,7 +12,7 @@ import { User, GetUserResponse } from '~~/types';
  * @returns {Promise<boolean | User[] | any>} A Promise containing either a boolean, an  User object, or any data type, depending on the returnType parameter.
  */
 
-export async function filterUsers( key: string, value: any, returnType: string, pageNumber: number = 1): Promise<boolean | User | any> {
+export async function filterUsers( key: string, value: any, returnType: string = 'default', pageNumber: number = 1): Promise<boolean | User | any> {
     const isReturnBool = returnType === "boolean"
     const { data: response } = await axios.get<GetUserResponse>(`https://reqres.in/api/users?page=${pageNumber}`)
     const { data, page, total_pages: totalPages } = response;

@@ -1,4 +1,7 @@
+import type { H3Event } from 'h3'
 import cookieSignature from 'cookie-signature'
+import { getUserById } from '~~/server/models/v1/users'
+
 
 export function serialize(obj: any) {
     const value = Buffer.from(JSON.stringify(obj), 'utf-8').toString('base64')
@@ -20,4 +23,17 @@ export function sign(value: string, secret: string) {
 
 export function unsign(value: string, secret: string) {
     return cookieSignature.unsign(value, secret)
+}
+
+export async function getUserFromSession(event: H3Event) {
+    const config = useRuntimeConfig()
+
+    const cookie = getCookie(event, config.cookieName)
+
+    if (!cookie) return null
+    const unsignedSession = unsign(cookie, config.cookieSecret)
+    if (!unsignedSession) return null
+    const session = deserialize(unsignedSession)
+
+    return getUserById(session.userId)
 }
