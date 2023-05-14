@@ -4,7 +4,6 @@ import axios from 'axios'
 
 export const useAuth = () => {
     const authUser = useAuthUser()
-    console.log(useAuthUser())
 
     const setUser = (user: User) => {
         authUser.value = user
@@ -16,8 +15,14 @@ export const useAuth = () => {
         rememberMe: boolean,
     ) => {
         const { data: response } = await axios.post('/api/v1/user/login', { email, password, rememberMe })
-
-        setUser(response.user)
+        const { data, error } = await useFetch('/api/v1/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password, rememberMe })
+        })
+        setUser(response)
 
         return authUser
     }
@@ -28,13 +33,13 @@ export const useAuth = () => {
 }
 
 // { 
-//     const { data, error } = await useFetch('/api/v1/user/login', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(this.form)
-//     })
+    // const { data, error } = await useFetch('/api/v1/user/login', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(this.form)
+    // })
 //     if (error.value) {
 //         const { message, statusCode } = error.value?.data
 //         alert(message)

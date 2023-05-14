@@ -15,8 +15,7 @@
     async function handleSubmit() {
         try {
             form.loading =  true
-            const data = await login(form.data.email, form.data.password, form.data.rememberMe)
-            console.log(data)
+            await login(form.data.email, form.data.password, form.data.rememberMe)
         } catch(error) {
             alert(error)
         } finally { form.loading = false }
