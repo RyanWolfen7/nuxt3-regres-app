@@ -20,8 +20,15 @@ export const useAuth = () => {
         return authUser
     }
 
+    const logout = async () => {
+        const { data: response } = await axios.post('/api/v1/user/logout')
+        setUser(response)
+        return true
+    }
+
     return {
-        login
+        login,
+        logout
     }
 }
 
