@@ -15,13 +15,6 @@ export const useAuth = () => {
         rememberMe: boolean,
     ) => {
         const { data: response } = await axios.post('/api/v1/user/login', { email, password, rememberMe })
-        const { data, error } = await useFetch('/api/v1/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password, rememberMe })
-        })
         setUser(response)
 
         return authUser

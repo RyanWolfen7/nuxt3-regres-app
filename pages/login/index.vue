@@ -1,7 +1,6 @@
 <script lang="ts" setup>
     // trying something new
     const { login } = useAuth()
-    const emit = defineEmits(['success'])
 
     const form = reactive({
         data: {
@@ -15,7 +14,8 @@
     async function handleSubmit() {
         try {
             form.loading =  true
-            await login(form.data.email, form.data.password, form.data.rememberMe)
+            const data = await login(form.data.email, form.data.password, form.data.rememberMe)
+            if(data.value) await navigateTo('/dashboard')
         } catch(error) {
             alert(error)
         } finally { form.loading = false }
