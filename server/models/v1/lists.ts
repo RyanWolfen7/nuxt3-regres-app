@@ -2,6 +2,7 @@ import axios from "axios"
 import { ListItem, ListResponse } from "~/types"
 
 export async function getLists(page: number = 1): Promise<ListResponse> {
+    console.log(page)
     // add caching and context update later
     const { data } = await axios.get(`https://reqres.in/api/cosas?page=${page}`)
     return data 

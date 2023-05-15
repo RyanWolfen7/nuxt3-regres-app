@@ -1,1 +1,2 @@
-export { useList } from './list/useList';
+export { useListCalls } from './list/useListCalls';
+export { useListData } from './list/useListData';

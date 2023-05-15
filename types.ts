@@ -36,7 +36,7 @@ interface ListItem {
     name: string;
     year: Date;
     color: String;
-    pantoneValue: String;
+    pantone_value: String;
 }
 
 export type UserWithoutPassword = Omit<User, 'password'>

@@ -11,7 +11,7 @@ interface ResponseError {
     message: string,
 }
 
-export default defineEventHandler(async (event): Promise<ResponseData | ResponseError | any> => {
+export default defineEventHandler(async (event): Promise<ResponseData | ResponseError> => {
     const body = await readBody<{ page: number }>(event);
     const userWithPassword = event.context.user;
     if (!userWithPassword) {
@@ -20,8 +20,7 @@ export default defineEventHandler(async (event): Promise<ResponseData | Response
             message: 'Not Authorized to get this',
         });
     }
-
-    const response = await getLists(body?.page);
+    const response = await getLists(body.page);
     if (!response) {
         return createError({
             statusCode: 400,
@@ -29,6 +28,6 @@ export default defineEventHandler(async (event): Promise<ResponseData | Response
         });
     }
 
-    const { data, page, total_pages: totalPages } = response;
-    return { list: data, page, totalPages };
+    const { data, page: pageResponse, total_pages: totalPages } = response;
+    return { list: data, page: pageResponse, totalPages };
 });

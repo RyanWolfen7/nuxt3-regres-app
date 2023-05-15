@@ -1,8 +1,9 @@
 import { ListItem } from '~/types'
 import axios from 'axios'
+import { useListData } from './useListData';
 
-export const useList = () => {
-    const authUser = useAuthUser()
+export const useListCalls = () => {
+    const listData = useListData()
 
     const createListItem = async (listItem: ListItem) => {
         const { data: response } = await axios.post('/api/v1/lists/create', listItem)
@@ -10,8 +11,10 @@ export const useList = () => {
     }
 
     const queryLists = async(page: number) => {
-        const { data: response } = await axios.post('/api/v1/lists/get', page)
-        return response
+        const { data: response } = await axios.post('/api/v1/lists/get', { page })
+        const updatedListData = {...listData.value, ...response}
+        listData.value = updatedListData
+        return { data: listData.value, requeryList: queryLists}
     }
 
     const updateListItem = async (listItem: ListItem) => {
