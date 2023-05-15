@@ -4,10 +4,6 @@ const { createListItem, queryLists, updateListItem, deleteListItem } = useListCa
 const listData = await useListData()
 
 onMounted(async () => await queryLists(1))
-onUpdated(() => {
-  // text content should be the same as current `count.value`
-    // console.log(listData)
-})
 
 </script>
 
