@@ -39,7 +39,7 @@ export const useAuth = () => {
                 setUser(response)
             }
             catch (error) {
-                setCookie(null)
+                setCookie({})
             }
         }
 
