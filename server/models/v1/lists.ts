@@ -16,7 +16,6 @@ export async function getListItemByIndex(index: number | undefined) {
 
 export async function updateListItem(listItem: ListItem) {
     if(!listItem.id) return null
-    // add caching and context update later
     const response = await axios.put<any>(`https://reqres.in/api/cosas/${listItem.id}`, listItem)
     return response
 }
