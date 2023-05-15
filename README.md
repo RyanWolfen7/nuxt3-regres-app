@@ -48,6 +48,24 @@ npm run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
+## Testing 
+
+### Create User
+Create user doesnt work because edge cases I made checking if user already exists in reqres. Create user for reqres needs to use a customer that already exists. 
+
+#### Cases
+- no password or email submit
+- submit user that exists (should return 400)
+- submit user that doesnt exists (returns 400 from reqres)
+
+### Login
+log in can work with users such as rachel.howell@reqres.in. Because Reqres doesnt actually have passwords you need to use the email as a password aswell so that the bycrypt can run and let you through.
+
+#### Cases
+- no password or email
+- right email but bad password
+- right password and email
+
 ## Server
 
 ### Available routes
