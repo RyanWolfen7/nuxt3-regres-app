@@ -18,7 +18,8 @@ module.exports = {
     colors: {
       main: "#272727",
       secondary: '#EFF1F3',
-      accent: '#FED766'
+      accent: '#FED766',
+      error: 'red-500'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

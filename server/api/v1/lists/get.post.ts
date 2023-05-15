@@ -1,14 +1,34 @@
-import { getLists } from "~/server/models/v1/lists"
-import { ListItem } from "~/types"
+import { getLists } from "~/server/models/v1/lists";
 
-export default defineEventHandler(async (event) => {
-    const body = await readBody<{page: number}>(event)
-    const { page } = body
-    const userWithPassword = event.context.user
-    if (!userWithPassword) return createError({
-        statusCode: 204,
-        message: 'Not Authorized to get this',
-    })
-    const response = await getLists(page)
-    return response
-})
+interface ResponseData {
+    list: any[]; // Replace `any[]` with the actual type of your list items
+    page: number;
+    totalPages: number;
+}
+
+interface ResponseError {
+    statusCode: number,
+    message: string,
+}
+
+export default defineEventHandler(async (event): Promise<ResponseData | ResponseError | any> => {
+    const body = await readBody<{ page: number }>(event);
+    const userWithPassword = event.context.user;
+    if (!userWithPassword) {
+        return createError({
+            statusCode: 204,
+            message: 'Not Authorized to get this',
+        });
+    }
+
+    const response = await getLists(body?.page);
+    if (!response) {
+        return createError({
+            statusCode: 400,
+            message: 'Could not find lists',
+        });
+    }
+
+    const { data, page, total_pages: totalPages } = response;
+    return { list: data, page, totalPages };
+});
