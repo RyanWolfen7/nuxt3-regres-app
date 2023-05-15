@@ -138,6 +138,15 @@ Failure
     message: String
 }
 ```
+
+## Testing
+
+Currently I'm using vitest. See docs [HERE](https://vitest.dev/guide/) 
+
+to run tests
+```
+npm run test
+```
 ## TODO
 
 In Order of Importance
