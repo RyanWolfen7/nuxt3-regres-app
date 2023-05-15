@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({ middleware: ['user-only'] })
 const { pending, data } = useLazyFetch('/api/v1/lists/get', { method: 'POST' })
-watch(data, (newData) => {
-})
 </script>
 
 

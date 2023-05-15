@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+    definePageMeta({ middleware: ['logged-in'] })
     // trying something new
     const { login } = useAuth()
 
