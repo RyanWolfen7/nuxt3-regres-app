@@ -9,8 +9,8 @@ export const useList = () => {
         return response
     }
 
-    const queryLists = async() => {
-        const { data: response } = await axios.get('/api/v1/lists/get')
+    const queryLists = async(page: number) => {
+        const { data: response } = await axios.post('/api/v1/lists/get', page)
         return response
     }
 
