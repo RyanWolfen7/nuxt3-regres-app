@@ -25,5 +25,13 @@ interface GetUserResponse {
     total_pages: number;
 }
 
+interface ListItem {
+    id?: number;
+    name: string;
+    year: Date;
+    color: String;
+    pantoneValue: String;
+}
+
 export type UserWithoutPassword = Omit<User, 'password'>
-export type { GetUserResponse }
+export type { GetUserResponse, ListItem }
