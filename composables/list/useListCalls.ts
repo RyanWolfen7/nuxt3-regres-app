@@ -14,7 +14,7 @@ export const useListCalls = () => {
         const { data: response } = await axios.post('/api/v1/lists/get', { page })
         const updatedListData = {...listData.value, ...response}
         listData.value = updatedListData
-        return { data: listData.value, requeryList: queryLists}
+        return { data: listData.value }
     }
 
     const updateListItem = async (listItem: ListItem) => {

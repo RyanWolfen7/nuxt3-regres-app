@@ -26,7 +26,7 @@ interface GetUserResponse {
 }
 
 interface ListResponse {
-    data: any[]; // Replace `any[]` with the actual type of your list items
+    data: ListItem[];
     page: number;
     total_pages: number;
 }  
