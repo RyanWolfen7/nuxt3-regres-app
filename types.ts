@@ -25,6 +25,10 @@ interface GetUserResponse {
     total_pages: number;
 }
 
+interface ReturnTypes {
+    default: User;
+    boolean: boolean;
+}
 interface ListResponse {
     data: ListItem[];
     page: number;
@@ -40,4 +44,4 @@ interface ListItem {
 }
 
 export type UserWithoutPassword = Omit<User, 'password'>
-export type { GetUserResponse, ListItem, ListResponse }
+export type { GetUserResponse, ListItem, ListResponse, ReturnTypes }

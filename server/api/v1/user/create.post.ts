@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
             message: 'User name, email address and password are required',
         })
     }
-    const doesUserExist = await findUserByEmail(email, 'boolean')
+    const doesUserExist = await findUserByEmail(email)
     if ( doesUserExist ) { 
         return createError({
             statusCode: 400,

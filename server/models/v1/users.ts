@@ -10,8 +10,8 @@ const defaultHeaders = {
     }
 }
 
-export async function findUserByEmail(email: string, returnType: string = "default") {
-    const user = await filterUsers("email", email, returnType)
+export async function findUserByEmail(email: string) {
+    const user = await filterUsers("email", email)
     return user
 }
 
