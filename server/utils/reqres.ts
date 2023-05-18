@@ -6,7 +6,7 @@ const getUsers = async (pageNumber: number) => {
     return data
 }
 
-const getExistingUser = async (key: string, value: string, response: any): any => {
+const getExistingUser = async (key: string, value: string, response: any): Promise<User | null> => {
     const { data, page, total_pages: totalPages } = await response;
     if (!data) return null
     const user = data.find((user: User) => user[key] == value)
