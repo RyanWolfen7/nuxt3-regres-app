@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { User, GetUserResponse, ReturnTypes } from '~~/types';
+import { User, GetUserResponse } from '~~/types';
 
-var getUsers = async (pageNumber: number) => {
+var getUsers = async (pageNumber: number = 1) => {
     const { data } = await axios.get<GetUserResponse>(`https://reqres.in/api/users?page=${pageNumber}`)
     return data
-}
+} 
 
 var getExistingUser = async (key: string, value: string, response: any): Promise<User | null> => {
     const { data, page, total_pages: totalPages } = await response;
@@ -17,10 +17,8 @@ var getExistingUser = async (key: string, value: string, response: any): Promise
 
 var paginateUserResponse = (key: string, value: string, page: number) => getExistingUser(key, value, getUsers(page)) 
 
-export async function filterUsers(key: string, value: any, pageNumber: number = 1): Promise<User | null> {
-    const usersData = await getUsers(pageNumber)
-    const existingUser = await getExistingUser(key, value, usersData)
-    return existingUser;
+export async function filterUsers(key: string, value: any): Promise<User | null> {
+    return paginateUserResponse(key, value, 1)
 }
 
 // const returnUserBy = (user: User, returnType: keyof ReturnTypes & string) => {
