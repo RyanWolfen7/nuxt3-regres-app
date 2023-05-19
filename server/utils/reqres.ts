@@ -11,17 +11,18 @@ var getExistingUser = async (key: string, value: string, response: any): Promise
     if (!data) return null
     const user = data.find((user: User) => user[key] == value)
     if (user) return user
-    if (page !== totalPages) { return paginateUserResponse(key, value, page + 1) }
+    if (page !== totalPages) { return filterUsers(key, value, page + 1) }
     return null
 }
 
-var paginateUserResponse = (key: string, value: string, page: number) => getExistingUser(key, value, getUsers(page)) 
+var composeUserPagination = (getExistingUser: any, getUsers: any) => async (key: string, value: string, page: number = 1) => await getExistingUser(key, value, getUsers(page)) 
 
-export async function filterUsers(key: string, value: any): Promise<User | null> {
-    return paginateUserResponse(key, value, 1)
-}
+export const filterUsers = composeUserPagination(getExistingUser, getUsers)
+
 
 // const returnUserBy = (user: User, returnType: keyof ReturnTypes & string) => {
 //     const types: ReturnTypes = { default: user, boolean: false };
 //     return types[returnType];
 // };
+
+// const composeUsers = (f1: any, f2: any) => async (key: string, value: string, page: number) => await f1(key, value, await f2(page))
